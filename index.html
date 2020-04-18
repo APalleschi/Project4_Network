@@ -1,0 +1,49 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+      
+          <span aria-hidden="true">&laquo;</span></a>
+          <span aria-hidden="true">&#xe005;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+    <h2>All Posts</h2>
+        {% for posting in postings %}
+        <div class="card mb-3">
+            {{ posting.description }} <br>
+            Posted by 
+            <a href="{% url 'profile' posting.username %}">
+                {{ posting.username }}
+            </a>
+            Created {{ posting.creation_time }} <br>
+           Likes <div id='like-count'>0</div>
+        
+           <button id="like"> 
+               <span class="glyphicon glyphicon-heart"></span>
+               Like</button>
+            </div>
+        </div>
+        
+{% empty %}
+No active postings.
+{% endfor %} 
+    <div>
+    <h3>New Post</h3>
+    
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="description">
+            </div>
+        <input class="btn btn-primary" type="submit" value="Post">
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/network.js' %}" rel="js"> </script>
+{% endblock %}

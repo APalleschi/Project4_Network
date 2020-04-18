@@ -1,0 +1,23 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block body %}
+
+{% for posting in postings %}
+        <div class="card mb-3">
+            {{ posting.description }} <br>
+            Posted by 
+            <a href="{% url 'profile' posting.username %}">
+                {{ posting.username }}
+            </a>
+            Created {{ posting.creation_time }} <br>
+        </div>
+           Likes <div id='like-count'>0</div>
+        
+           <button id="like"> 
+               <span class="glyphicon glyphicon-heart"></span>
+               Like</button>
+
+            
+               {% endfor %} 
+
+{% endblock %}

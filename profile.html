@@ -1,0 +1,39 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<p>Profile of {{ profile.username }} </p>
+{% if following_add %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="listing_id" value="{{ listing.id }}">
+        <input class="btn btn-sm btn-primary" type="submit" value="Unfollow">
+    </form>
+{% else %}
+    <form action="{% url 'following_add' profile.username %}" method="POST">
+        {% csrf_token %}
+        <input class="btn btn-sm btn-primary" type="submit" value="Follow">
+    </form>
+{% endif %}
+
+
+
+
+<h3> Followers </h3>
+<h3> Following </h3>
+<h3>All Posts </h3>
+
+        {% for posting in postings %}
+        
+            {{ posting.description }} <br>
+           
+                {{ posting.username }}
+        
+            Created {{ posting.creation_time }} <br>
+            Likes 0 
+            
+    
+        
+{% empty %}
+No active postings.
+{% endfor %} 
+{% endblock %}
